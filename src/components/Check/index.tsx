@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import { PrefsContext } from '../context/settings-context';
 import './style.css';
+import { useContext } from 'react';
 
-const Check : React.FC = ()  => {
-  const [checked, setChecked] = useState(false);
+interface ICheck {
+  checked : boolean;
+  onChange : (value : boolean) => void;
+}
+// prejmenovala jsem props check -> checked (i v interface ICheck)
+const Check : React.FC<ICheck> = ({ checked , onChange})  => {
+//  const [checked, setChecked] = useState<boolean>(false);
+
+const {vegan} = useContext(PrefsContext);
 
   const handleClick = () => {
-    setChecked(!checked);
+    // setChecked(!checked);
+    onChange(!checked);
   };
 
   return (
     <button
-      className="check"
+      className={vegan ? "check" : "check--disabled"}
       onClick={handleClick}
     >
       {checked ? '✓' : ''}
