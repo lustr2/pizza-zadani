@@ -84,9 +84,15 @@ const toppings: ITopping[] = [
 const App: React.FC = () => {
 
   const [veganOnly, setVeganOnly] = useState<{vegan:boolean}>({vegan: false});
+  const [totalPrice, seTotalPrice] = useState<number>(0);
+
 
   const setVegan = (vegan : boolean) => {
     setVeganOnly((oldVegan) => ({...oldVegan, vegan}));
+  }
+
+  const handleChangeTotal = (e : number) => {
+    seTotalPrice(oldTotal => Math.round((oldTotal + e)*100)/100);
   }
 
   useEffect(() => {
@@ -99,9 +105,9 @@ const App: React.FC = () => {
   return (
     <div className="container">
       <main>
-        <PrefsContext.Provider value={{...veganOnly, setVegan}}>
+        <PrefsContext.Provider value={{...veganOnly, setVegan }}>
           <Header />
-          <ToppingsSelect toppings={toppings} />
+          <ToppingsSelect toppings={toppings} totalPrice={totalPrice} totalSum={handleChangeTotal} />
         </PrefsContext.Provider>
       </main>
     </div>

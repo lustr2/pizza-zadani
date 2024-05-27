@@ -8,8 +8,7 @@ interface PrefDataSettings extends PrefData {
     setVegan : (vegan:boolean) => void;
 }
 
-export const PrefsContext  = createContext<PrefDataSettings>
-    ({
-        vegan: true,
-        setVegan: ()=> {},
-    });
+export const PrefsContext  = createContext<PrefDataSettings> ({
+    vegan: true,
+    setVegan: ()=> {},
+});
