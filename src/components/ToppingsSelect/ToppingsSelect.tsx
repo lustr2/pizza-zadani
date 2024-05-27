@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import ITopping from "../../models/Topping";
-import Topping from "../Topping";
+import Topping from "../Topping/Topping";
 import './style.css';
 import { PrefsContext } from '../context/settings-context';
 
@@ -31,9 +31,19 @@ const ToppingsSelect: React.FC<IToppingsSelectProps> = ({ toppings }) => {
       <p>Selected toppings: {countTopp}, total price: {totalPrice} Euro</p>
     
       <div className="toppings">
-        {toppings.filter((vegan) => vegan.vegan || !vegan).map((topping, index) => (
+      {toppings.map((topping, index) => (
+        (!vegan) ? 
           <Topping topping={topping} key={topping.name} onToppingChange={selected => handleCheckChange(index, selected)}/>
-        ))}
+              :
+           // zobraz jen veganske toppings
+           (topping.vegan) && 
+            <Topping topping={topping} key={topping.name} onToppingChange={selected => handleCheckChange(index, selected)}/>
+         ))
+      }
+
+        {/* {toppings.filter((vegan) => vegan.vegan || !vegan).map((topping, index) => (
+          <Topping topping={topping} key={topping.name} onToppingChange={selected => handleCheckChange(index, selected)}/>
+        ))} */}
       </div>
     </>
   );

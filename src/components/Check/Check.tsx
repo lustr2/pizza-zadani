@@ -1,6 +1,4 @@
-import { PrefsContext } from '../context/settings-context';
 import './style.css';
-import { useContext } from 'react';
 
 interface ICheck {
   checked : boolean;
@@ -10,16 +8,17 @@ interface ICheck {
 const Check : React.FC<ICheck> = ({ checked , onChange})  => {
 //  const [checked, setChecked] = useState<boolean>(false);
 
-const {vegan} = useContext(PrefsContext);
+//const {vegan, setVegan} = useContext(PrefsContext);
 
   const handleClick = () => {
     // setChecked(!checked);
     onChange(!checked);
+//    setVegan(!vegan);
   };
 
   return (
     <button
-      className={vegan ? "check" : "check--disabled"}
+      className='check'
       onClick={handleClick}
     >
       {checked ? '✓' : ''}

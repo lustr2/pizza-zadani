@@ -1,13 +1,15 @@
+
 import { useContext } from "react";
 import { PrefsContext } from "../context/settings-context";
 
 
 export const Header:React.FC = () => {
 
-    const {setVegan} = useContext(PrefsContext);
+    const {vegan, setVegan} = useContext(PrefsContext);
 
     const handleChange = () => {
-        setVegan(setVegan);
+//        console.log('BUdeme nastavovat zmenu vegana... ted je:' + vegan);
+        setVegan(!vegan);
     }
 
     return (
@@ -15,9 +17,10 @@ export const Header:React.FC = () => {
            <header>
             <div className="pizza" />
             <h1>Build your own pizza</h1>
-            <input type="checkbox" onChange={handleChange}>
-                Show input vegan ingredients
-            </input>
+            <label>
+                <input type="checkbox" onChange={handleChange} />
+                    Show input vegan ingredients
+            </label>
           </header>
         </>
     );

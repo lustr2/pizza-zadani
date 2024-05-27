@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import ToppingsSelect from './components/ToppingsSelect';
+import { useState, useEffect } from 'react';
+import ToppingsSelect from './components/ToppingsSelect/ToppingsSelect';
 import ITopping from './models/Topping';
 import { PrefsContext } from './components/context/settings-context';
 
 import './style.css';
+import { Header } from './components/Header/Header';
 
 const toppings: ITopping[] = [
   {
@@ -80,20 +81,26 @@ const toppings: ITopping[] = [
   },
 ];
 
-
-
 const App: React.FC = () => {
 
-  const [veganOnly, setVeganOnly] = useState<object>({veganOnly: true});
+  const [veganOnly, setVeganOnly] = useState<{vegan:boolean}>({vegan: false});
 
   const setVegan = (vegan : boolean) => {
     setVeganOnly((oldVegan) => ({...oldVegan, vegan}));
   }
 
+  useEffect(() => {
+//     console.log("Vegan state changed:", veganOnly);
+     if (veganOnly) {
+        toppings.map(t => (!t.vegan && t.selected) ? t.selected=false : '');
+     }
+  }, [veganOnly]);
+
   return (
     <div className="container">
       <main>
         <PrefsContext.Provider value={{...veganOnly, setVegan}}>
+          <Header />
           <ToppingsSelect toppings={toppings} />
         </PrefsContext.Provider>
       </main>
